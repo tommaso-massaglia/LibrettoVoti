@@ -1,6 +1,7 @@
 package it.polito.tdp.libretto;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Libretto {
@@ -49,6 +50,19 @@ public class Libretto {
 			}
 		}
 		return null;
+	}
+	
+	public void add(int index, Valutazione element) {
+		boolean presente = false;
+		for (Valutazione v : voti) {
+			if (v.getCorso().equals(element.getCorso())&&v.getVoto()==element.getVoto()) {
+				presente = true;
+			}
+		}
+		if (!presente) {
+			voti.add(element);
+		}
+		
 	}
 
 }
