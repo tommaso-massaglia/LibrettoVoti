@@ -51,18 +51,22 @@ public class Libretto {
 		}
 		return null;
 	}
-	
-	public void add(int index, Valutazione element) {
-		boolean presente = false;
+
+	public boolean esistevoto(Valutazione element) {
 		for (Valutazione v : voti) {
-			if (v.getCorso().equals(element.getCorso())&&v.getVoto()==element.getVoto()) {
-				presente = true;
+			if (v.getCorso().equals(element.getCorso()) && v.getVoto() == element.getVoto()) {
+				return true;
 			}
 		}
-		if (!presente) {
+		return false;
+	}
+
+	public void add(int index, Valutazione element) {
+
+		if (!esistevoto(element)) {
 			voti.add(element);
 		}
-		
+
 	}
 
 }
