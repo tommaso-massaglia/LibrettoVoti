@@ -2,12 +2,12 @@ package it.polito.tdp.libretto;
 
 import java.time.LocalDate;
 
-public class Voto {
+public class Valutazione {
 	private int voto;
 	private String corso;
 	private LocalDate data;
 
-	public Voto(int voto, String corso, LocalDate data) {
+	public Valutazione(int voto, String corso, LocalDate data) {
 		super();
 		this.voto = voto;
 		this.corso = corso;
