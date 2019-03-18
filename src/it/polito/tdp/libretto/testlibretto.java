@@ -22,6 +22,7 @@ public class testlibretto {
 
 		List<Valutazione> venticinque = test.cercaVoti(25);
 		System.out.println(venticinque);
+		System.out.println("Analisi I, "+test.cercaEsame("analisi 1"));
 
 	}
 
