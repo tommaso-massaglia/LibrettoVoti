@@ -13,6 +13,10 @@ public class Valutazione {
 		this.corso = corso;
 		this.data = data;
 	}
+	
+	public Valutazione clona() {
+		return new Valutazione(this.voto, this.corso, this.data);
+	}
 
 	@Override
 	public int hashCode() {

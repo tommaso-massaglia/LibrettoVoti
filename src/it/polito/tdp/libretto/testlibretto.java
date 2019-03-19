@@ -23,7 +23,12 @@ public class testlibretto {
 
 		List<Valutazione> venticinque = test.cercaVoti(25);
 		System.out.println(venticinque);
+		System.out.println(test.toString());
 		System.out.println("Analisi I, " + test.cercaEsame("Analisi 1"));
+		
+		Libretto migliorato = test.librettomigliorato();
+		System.out.println(migliorato.toString());
+		System.out.println(test.toString());
 
 	}
 

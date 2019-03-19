@@ -11,6 +11,17 @@ public class Libretto {
 	public Libretto() {
 		this.voti = new ArrayList<Valutazione>();
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		String esito = new String();
+		for (Valutazione v : this.voti)
+			esito+=v.toString()+" \n";
+		return esito;
+	}
+
 
 
 	/**
@@ -43,35 +54,38 @@ public class Libretto {
 		else
 			return this.voti.get(pos);
 	}
-	
+
 	/**
 	 * Controlla se e gia stato inserito l'esame nella lista
+	 * 
 	 * @param v voto da controllare se esiste
 	 * @return {@link true} se presente {@link false} se non presente
 	 */
 	public boolean esistevoto(Valutazione v) {
-		int pos = this.voti.indexOf(v) ;
-		if (pos==-1) 
-			return false ;
-		else 
-			return ( v.getVoto() == this.voti.get(pos).getVoto() ) ;
+		int pos = this.voti.indexOf(v);
+		if (pos == -1)
+			return false;
+		else
+			return (v.getVoto() == this.voti.get(pos).getVoto());
 	}
-	
+
 	/**
 	 * Controlla se è presente un esame con stesso voto ma data diversa
+	 * 
 	 * @param v
 	 * @return false se non c'è conflitto, true altrimenti
 	 */
 	public boolean conflittovoto(Valutazione v) {
-		int pos = this.voti.indexOf(v) ;
-		if (pos==-1) 
-			return false ;
-		else 
-			return ( v.getVoto() != this.voti.get(pos).getVoto() ) ;
+		int pos = this.voti.indexOf(v);
+		if (pos == -1)
+			return false;
+		else
+			return (v.getVoto() != this.voti.get(pos).getVoto());
 	}
 
-	/** 
+	/**
 	 * Aggiunge un voto al libretto solo se presente
+	 * 
 	 * @param element {@link Valutazione} da aggiungere
 	 * @return {@link true} se aggiunta, {@link false} altrimenti
 	 */
@@ -80,11 +94,42 @@ public class Libretto {
 		if (!this.esistevoto(element) && !this.conflittovoto(element)) {
 			voti.add(element);
 			return true;
-		}
-		else
+		} else
 			return false;
-		
 
 	}
 
+	
+	public Libretto librettomigliorato() {
+		
+		Libretto nuovo = new Libretto();
+		for (Valutazione v : this.voti) {
+			if (v.getVoto()>=18 && v.getVoto()<24 || v.getVoto()==29) {
+				Valutazione v1 = v.clona();
+				v1.setVoto(v1.getVoto()+1);
+				nuovo.add(v1);
+			}
+			if (v.getVoto()>=24 && v.getVoto()<29) {
+				Valutazione v1 = v.clona();
+				v1.setVoto(v1.getVoto()+2);
+				nuovo.add(v1);
+			}
+			if (v.getVoto()==30) {
+				Valutazione v1 = v.clona();
+				nuovo.add(v1);
+			}
+		}
+		return nuovo;
+		
+	}
+	
+	public void cancellavotiscarsi() {
+		List<Valutazione> cancellare = new ArrayList<Valutazione>();
+		for (Valutazione v : this.voti)
+			if (v.getVoto()<24) {
+				cancellare.add(v);
+			}
+		this.voti.removeAll(cancellare);
+	}
+	
 }
