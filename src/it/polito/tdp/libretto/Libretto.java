@@ -12,14 +12,6 @@ public class Libretto {
 		this.voti = new ArrayList<Valutazione>();
 	}
 
-	/**
-	 * Aggiunge un nuovo voto al libretto
-	 * 
-	 * @param v il {@link voto} da aggiungere
-	 */
-	public void add(Valutazione v) {
-		voti.add(v);
-	}
 
 	/**
 	 * Seleziona il sottoinsieme di valutazioni con voto desiderato
@@ -44,28 +36,54 @@ public class Libretto {
 	 * @return Oggetto {@link Voto} della materia specificata
 	 */
 	public Valutazione cercaEsame(String nome) {
-		for (Valutazione v : this.voti) {
-			if (v.getCorso().toLowerCase().equals(nome.toLowerCase())) {
-				return v;
-			}
-		}
-		return null;
+		Valutazione valutazione = new Valutazione(0, nome, null);
+		int pos = this.voti.indexOf(valutazione);
+		if (pos == -1)
+			return null;
+		else
+			return this.voti.get(pos);
+	}
+	
+	/**
+	 * Controlla se e gia stato inserito l'esame nella lista
+	 * @param v voto da controllare se esiste
+	 * @return {@link true} se presente {@link false} se non presente
+	 */
+	public boolean esistevoto(Valutazione v) {
+		int pos = this.voti.indexOf(v) ;
+		if (pos==-1) 
+			return false ;
+		else 
+			return ( v.getVoto() == this.voti.get(pos).getVoto() ) ;
+	}
+	
+	/**
+	 * Controlla se è presente un esame con stesso voto ma data diversa
+	 * @param v
+	 * @return false se non c'è conflitto, true altrimenti
+	 */
+	public boolean conflittovoto(Valutazione v) {
+		int pos = this.voti.indexOf(v) ;
+		if (pos==-1) 
+			return false ;
+		else 
+			return ( v.getVoto() != this.voti.get(pos).getVoto() ) ;
 	}
 
-	public boolean esistevoto(Valutazione element) {
-		for (Valutazione v : voti) {
-			if (v.getCorso().equals(element.getCorso()) && v.getVoto() == element.getVoto()) {
-				return true;
-			}
-		}
-		return false;
-	}
+	/** 
+	 * Aggiunge un voto al libretto solo se presente
+	 * @param element {@link Valutazione} da aggiungere
+	 * @return {@link true} se aggiunta, {@link false} altrimenti
+	 */
+	public boolean add(Valutazione element) {
 
-	public void add(int index, Valutazione element) {
-
-		if (!esistevoto(element)) {
+		if (!this.esistevoto(element) && !this.conflittovoto(element)) {
 			voti.add(element);
+			return true;
 		}
+		else
+			return false;
+		
 
 	}
 
